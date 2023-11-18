@@ -11,7 +11,12 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.3.1",
+    "@sanity/astro": "^2.1.4",
+    "@sanity/client": "^6.4.12",
     "astro": "^3.5.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sanity": "*",
     "typescript": "^5.2.2"
   }
 }
