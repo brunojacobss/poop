@@ -26,16 +26,18 @@ const poops = await sanityClient.fetch(
       Ultima actualización: {new Date(poops[0].createdAt).toUTCString()}
     </h3>
     {
-      authors.map((author, i) => (
-        <div class="mb-4">
-          <AuthorCard
-            name={author.name}
-            poopCount={author.poops}
-            position={i + 1}
-            imageUrl={author.image && builder.image(author.image).url()}
-          />
-        </div>
-      ))
+      authors.map((author, i) =>
+        author.image ? (
+          <div class="mb-4">
+            <AuthorCard
+              name={author.name}
+              poopCount={author.poops}
+              position={i + 1}
+              imageUrl={builder.image(author.image).url()}
+            />
+          </div>
+        ) : null
+      )
     }
   </main>
 </Layout>
