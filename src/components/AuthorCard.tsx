@@ -36,7 +36,7 @@ export function AuthorCard(props: AuthorCardProps): JSX.Element {
           </p>
         </div>
         <h1 className="sm:text-2xl text-sm font-bold">{props.name}</h1>
-        <div className="border rounded-full border-foreground flex items-center pl-4 pr-2 pt-2 pb-3">
+        <div className="border rounded-full border-foreground flex items-center px-4 py-2">
           <span className="text-foreground font-bold sm:text-xl text-sm">
             {props.poopCount}{' '}
           </span>
