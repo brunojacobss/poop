@@ -18,9 +18,11 @@ const poops = await sanityClient.fetch(
 ---
 
 <Layout title="Welcome to Poops.">
-  <main class="w-1/2">
-    <h1 class="text-4xl text-center mb-8">💩 Counter: {poops.length}</h1>
-    <h3>
+  <main class="sm:w-1/2">
+    <h1 class="sm:text-4xl text-2xl text-center mb-8">
+      💩 Counter: {poops.length}
+    </h1>
+    <h3 class="text-sm">
       Ultima actualización: {new Date(poops[0].createdAt).toUTCString()}
     </h3>
     {
