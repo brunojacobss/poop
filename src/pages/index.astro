@@ -1,10 +1,7 @@
 ---
-import { AuthorCard } from '@/components/AuthorCard';
 import Layout from '../layouts/Layout.astro';
 import { sanityClient } from 'sanity:client';
-import imageUrlBuilder from '@sanity/image-url';
-
-const builder = imageUrlBuilder(sanityClient);
+import Leaderboard from '@/components/Leaderboard';
 
 const authors = await sanityClient.fetch<
   { name: string; poops: number; image: any }[]
@@ -25,19 +22,6 @@ const poops = await sanityClient.fetch(
     <h3 class="text-sm">
       Ultima actualización: {new Date(poops[0].createdAt).toUTCString()}
     </h3>
-    {
-      authors.map((author, i) =>
-        author.image ? (
-          <div class="mb-4">
-            <AuthorCard
-              name={author.name}
-              poopCount={author.poops}
-              position={i + 1}
-              imageUrl={builder.image(author.image).url()}
-            />
-          </div>
-        ) : null
-      )
-    }
+    <Leaderboard authors={authors} client:load />
   </main>
 </Layout>
