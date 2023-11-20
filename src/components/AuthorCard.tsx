@@ -10,7 +10,7 @@ type AuthorCardProps = {
 export function AuthorCard(props: AuthorCardProps): JSX.Element {
   const medal = props.position === 1 || props.position === 2;
   return (
-    <div className="w-full bg-accent rounded-lg">
+    <div className="w-full bg-gradient-to-r dark:from-[#1e293b] dark:to-[#020817] from-gray-300 to-white rounded-lg">
       <div className="flex flex-row items-center justify-between p-8 w-full h-full">
         <div
           className={cn('', {

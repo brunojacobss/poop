@@ -15,7 +15,6 @@ const authors = await sanityClient.fetch<
 const poops = await sanityClient.fetch(
   `*[_type == "poop"]{createdAt} | order(createdAt desc)`
 );
-console.log(poops);
 ---
 
 <Layout title="Welcome to Poops.">
