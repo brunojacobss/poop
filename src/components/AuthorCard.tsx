@@ -12,7 +12,7 @@ export function AuthorCard(props: AuthorCardProps): JSX.Element {
   const medal = props.position === 1 || props.position === 2;
   return (
     <div className="w-full dark:bg-[#2e2e2e]/[0.5] dark:border-[#2e2e2e] border border-gray-300  bg-gray-200/[0.5]  rounded-lg">
-      <div className="flex flex-row items-center justify-between sm:p-8 p-4 ">
+      <div className="flex flex-row items-center justify-between sm:p-8 p-4">
         <div
           className={cn(
             'dark:border-[#2e2e2e] border border-gray-300 rounded-full flex items-center justify-center sm:w-16 sm:h-16 w-8 h-8',

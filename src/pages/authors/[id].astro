@@ -1,0 +1,52 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { sanityClient } from 'sanity:client';
+import ProgressionChart from '@/components/ProgressionChart';
+import AuthorStats from '@/components/AuthorStats';
+const { id } = Astro.params;
+
+const author = await sanityClient.fetch<{
+  name: string;
+  poops: { createdAt: string }[];
+}>(
+  `
+	*[_type == "author" && _id == $id][0] {
+		name,
+		"poops": *[_type == "poop" && references(^._id)] {
+			createdAt,
+		} 
+	}
+`,
+  { id }
+);
+
+const poopsByDate = author.poops.reduce(
+  (acc, poop) => {
+    const date = new Date(poop.createdAt).toLocaleDateString('es-CO', {
+      month: '2-digit',
+      day: '2-digit',
+    });
+    if (!acc[date]) {
+      acc[date] = 0;
+    }
+    acc[date] += 1;
+    return acc;
+  },
+  {} as Record<string, number>
+);
+
+const chartData = Object.entries(poopsByDate).map(([date, count]) => ({
+  date,
+  count,
+}));
+---
+
+<Layout title="Author">
+  <div>
+    <h1 class="sm:text-4xl text-xl text-center">{author.name}</h1>
+    <ProgressionChart client:load chartData={chartData} />
+    <div class="mt-16">
+      <AuthorStats client:load poops={author.poops} poopsByDate={poopsByDate} />
+    </div>
+  </div>
+</Layout>

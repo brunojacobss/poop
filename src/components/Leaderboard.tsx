@@ -9,13 +9,15 @@ type Props = {
 export default function Leaderboard({ authors }: Props) {
   return authors.map((author, i) => (
     <div key={author.id} className="mb-4">
-      <AuthorCard
-        id={author.id}
-        name={author.name}
-        poopCount={author.poops}
-        position={i + 1}
-        imageUrl={author.image && builder.image(author.image).url()}
-      />
+      <a href={`authors/${author.id}`}>
+        <AuthorCard
+          id={author.id}
+          name={author.name}
+          poopCount={author.poops}
+          position={i + 1}
+          imageUrl={author.image && builder.image(author.image).url()}
+        />
+      </a>
     </div>
   ));
 }

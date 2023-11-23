@@ -15,7 +15,7 @@ const poops = await sanityClient.fetch(
 ---
 
 <Layout title="Welcome to Poops.">
-  <main class="sm:w-1/2 w-full">
+  <div>
     <h1 class="sm:text-4xl text-2xl text-center mb-8">
       💩 Counter: {poops.length}
     </h1>
@@ -23,5 +23,5 @@ const poops = await sanityClient.fetch(
       Ultima actualización: {new Date(poops[0].createdAt).toLocaleString()}
     </h3>
     <Leaderboard authors={authors} client:load />
-  </main>
+  </div>
 </Layout>
