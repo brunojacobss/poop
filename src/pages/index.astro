@@ -4,8 +4,8 @@ import { sanityClient } from 'sanity:client';
 import Leaderboard from '@/components/Leaderboard';
 
 const authors = await sanityClient.fetch<
-  { name: string; poops: number; image: any }[]
->(`*[_type == "author"]{name, 
+  { id: string; name: string; poops: number; image: any }[]
+>(`*[_type == "author"]{'id': _id, name, 
   "poops": count(*[_type == "poop" && references(^._id)]),
   image
 } | order(poops desc)`);
@@ -15,12 +15,12 @@ const poops = await sanityClient.fetch(
 ---
 
 <Layout title="Welcome to Poops.">
-  <main class="sm:w-1/2">
+  <main class="sm:w-1/2 w-full">
     <h1 class="sm:text-4xl text-2xl text-center mb-8">
       💩 Counter: {poops.length}
     </h1>
-    <h3 class="text-sm">
-      Ultima actualización: {new Date(poops[0].createdAt).toUTCString()}
+    <h3 class="text-xs">
+      Ultima actualización: {new Date(poops[0].createdAt).toLocaleString()}
     </h3>
     <Leaderboard authors={authors} client:load />
   </main>

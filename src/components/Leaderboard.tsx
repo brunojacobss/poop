@@ -4,12 +4,13 @@ import { AuthorCard } from './AuthorCard';
 const builder = imageUrlBuilder(sanityClient);
 
 type Props = {
-  authors: { name: string; poops: number; image: any }[];
+  authors: { id: string; name: string; poops: number; image: any }[];
 };
 export default function Leaderboard({ authors }: Props) {
   return authors.map((author, i) => (
-    <div className="mb-4">
+    <div key={author.id} className="mb-4">
       <AuthorCard
+        id={author.id}
         name={author.name}
         poopCount={author.poops}
         position={i + 1}
