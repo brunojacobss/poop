@@ -20,8 +20,10 @@ const author = await sanityClient.fetch<{
 `,
   { id }
 );
-
-const poopsByDate = author.poops.reduce(
+const poops = await sanityClient.fetch<{ createdAt: string }[]>(
+  `*[_type == "poop"]{createdAt} | order(createdAt desc)`
+);
+const poopsByDate = poops.reduce(
   (acc, poop) => {
     const date = new Date(poop.createdAt).toLocaleDateString('es-CO', {
       month: '2-digit',
@@ -36,7 +38,22 @@ const poopsByDate = author.poops.reduce(
   {} as Record<string, number>
 );
 
-const chartData = Object.entries(poopsByDate).map(([date, count]) => ({
+const authorPoopsByDate = author.poops.reduce(
+  (acc, poop) => {
+    const date = new Date(poop.createdAt).toLocaleDateString('es-CO', {
+      month: '2-digit',
+      day: '2-digit',
+    });
+    if (!acc[date]) {
+      acc[date] = 0;
+    }
+    acc[date] += 1;
+    return acc;
+  },
+  {} as Record<string, number>
+);
+
+const chartData = Object.entries(authorPoopsByDate).map(([date, count]) => ({
   date,
   count,
 }));
@@ -56,7 +73,12 @@ const chartData = Object.entries(poopsByDate).map(([date, count]) => ({
     </div>
     <ProgressionChart client:load chartData={chartData} />
     <div class="mt-16">
-      <AuthorStats client:load poops={author.poops} poopsByDate={poopsByDate} />
+      <AuthorStats
+        client:load
+        poops={author.poops}
+        poopsByDate={authorPoopsByDate}
+        totalPoopCount={Object.keys(poopsByDate).length}
+      />
     </div>
   </div>
 </Layout>

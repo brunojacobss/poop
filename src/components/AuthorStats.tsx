@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 type Props = {
   poops: { createdAt: string }[];
   poopsByDate: Record<string, number>;
+  totalPoopCount: number;
 };
 
 const Card = ({
@@ -21,7 +22,11 @@ const Card = ({
   );
 };
 
-export default function AuthorStats({ poops, poopsByDate }: Props) {
+export default function AuthorStats({
+  poops,
+  poopsByDate,
+  totalPoopCount,
+}: Props) {
   const highestPoopDay = Object.keys(poopsByDate).reduce((a, b) =>
     poopsByDate[a] > poopsByDate[b] ? a : b
   );
@@ -31,7 +36,7 @@ export default function AuthorStats({ poops, poopsByDate }: Props) {
       <Card title="Días 💩" content={Object.keys(poopsByDate).length} />
       <Card
         title="💩 x Día"
-        content={(poops.length / Object.keys(poopsByDate).length).toFixed(2)}
+        content={(poops.length / totalPoopCount).toFixed(2)}
       />
       <Card
         title="Día + 💩"
