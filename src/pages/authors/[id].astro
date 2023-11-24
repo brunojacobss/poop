@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import { sanityClient } from 'sanity:client';
 import ProgressionChart from '@/components/ProgressionChart';
 import AuthorStats from '@/components/AuthorStats';
+import { LucideArrowLeft } from 'lucide-react';
 const { id } = Astro.params;
 
 const author = await sanityClient.fetch<{
@@ -43,9 +44,18 @@ const chartData = Object.entries(poopsByDate).map(([date, count]) => ({
 
 <Layout title="Author">
   <div>
-    <h1 class="sm:text-4xl text-xl text-center">{author.name}</h1>
+    <div
+      class="flex flex-row sm:justify-start justify-center items-center sm:gap-4 gap-1"
+    >
+      <a href="/">
+        <LucideArrowLeft className="w-8 sm:h-8 h-4" />
+      </a>
+      <h1 class="sm:text-4xl text-xl text-center">
+        {author.name}
+      </h1>
+    </div>
     <ProgressionChart client:load chartData={chartData} />
-    <div class="mt-16">
+    <div class="mt-24">
       <AuthorStats client:load poops={author.poops} poopsByDate={poopsByDate} />
     </div>
   </div>
