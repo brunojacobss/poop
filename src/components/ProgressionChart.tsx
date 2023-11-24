@@ -17,7 +17,6 @@ type Props = {
 export default function ProgressionChart({ chartData }: Props) {
   return (
     <div className="sm:mt-24 mt-16 sm:h-96 h-48">
-      <h1 className=" sm:text-2xl text-center text-lg mb-8">Progresión</h1>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={chartData} width={100}>
           <defs>

@@ -2,6 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import { sanityClient } from 'sanity:client';
 import Leaderboard from '@/components/Leaderboard';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
+import dayjs from 'dayjs';
 
 const authors = await sanityClient.fetch<
   { id: string; name: string; poops: number; image: any }[]
@@ -12,7 +15,7 @@ const authors = await sanityClient.fetch<
 const poops = await sanityClient.fetch(
   `*[_type == "poop"]{createdAt} | order(createdAt desc)`
 );
-const lastPoop = new Date(poops[0].createdAt);
+const lastPoop = dayjs.utc(poops[0].createdAt);
 ---
 
 <Layout title="Welcome to Poops.">
@@ -21,7 +24,7 @@ const lastPoop = new Date(poops[0].createdAt);
       💩 Counter: {poops.length}
     </h1>
     <h3 class="text-xs">
-      Ultima actualización: {lastPoop.toLocaleDateString()}
+      Ultima actualización: {lastPoop.format('DD/MM/YYYY HH:mm:ss')}
     </h3>
     <Leaderboard authors={authors} client:load />
   </div>

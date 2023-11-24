@@ -55,7 +55,7 @@ const chartData = Object.entries(poopsByDate).map(([date, count]) => ({
       </h1>
     </div>
     <ProgressionChart client:load chartData={chartData} />
-    <div class="mt-24">
+    <div class="mt-16">
       <AuthorStats client:load poops={author.poops} poopsByDate={poopsByDate} />
     </div>
   </div>
